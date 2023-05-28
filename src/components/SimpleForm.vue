@@ -1,103 +1,108 @@
 <template>
-  <VForm @submit.prevent="onSubmit">
-    <VContainer>
-      <VRow justify="center">
-        <VCol
-          cols="12"
-          sm="6"
-          lg="5"
-        >
-          <VTextField
-            v-model="state.nickname"
-            label="Никнейм"
-            :error-messages="mapErrorMessages(v$.nickname.$errors)"
-            @update:focused="val => handleFocus(val, v$.nickname.$touch)"
+  <VContainer>
+    <VForm @submit.prevent="onSubmit">
+      <VContainer>
+        <VRow justify="center">
+          <VCol
+            cols="12"
+            sm="6"
+            lg="5"
           >
-            <template v-slot:append-inner>
-              <VFadeTransition leave-absolute>
-                <VProgressCircular
-                  v-if="v$.nickname.$pending"
-                  color="info"
-                  indeterminate
-                  size="24"
-                ></VProgressCircular>
-                <VIcon
-                  v-else-if="!v$.nickname.$invalid"
-                  color="success"
-                  icon="mdi-check-circle"
-                />
-                <VIcon
-                  v-else-if="v$.nickname.$error"
-                  color="error"
-                  icon="mdi-alert-circle"
-                />
-              </VFadeTransition>
-            </template>
-          </VTextField>
-          <VTextField
-            v-model="state.email"
-            class="mt-2"
-            label="Email"
-            type="email"
-            :error-messages="mapErrorMessages(v$.email.$errors)"
-            @update:focused="val => handleFocus(val, v$.email.$touch)"
-            @update:model-value="() => backendErrors.email = undefined"
-          />
+            <VTextField
+              v-model="state.nickname"
+              label="Никнейм"
+              :error-messages="mapErrorMessages(v$.nickname.$errors)"
+              @update:focused="val => handleFocus(val, v$.nickname.$touch)"
+            >
+              <template v-slot:append-inner>
+                <VFadeTransition leave-absolute>
+                  <VProgressCircular
+                    v-if="v$.nickname.$pending"
+                    color="info"
+                    indeterminate
+                    size="24"
+                  ></VProgressCircular>
+                  <VIcon
+                    v-else-if="!v$.nickname.$invalid"
+                    color="success"
+                    icon="mdi-check-circle"
+                  />
+                  <VIcon
+                    v-else-if="v$.nickname.$error"
+                    color="error"
+                    icon="mdi-alert-circle"
+                  />
+                </VFadeTransition>
+              </template>
+            </VTextField>
+            <VTextField
+              v-model="state.email"
+              class="mt-2"
+              label="Email"
+              type="email"
+              :error-messages="mapErrorMessages(v$.email.$errors)"
+              @update:focused="val => handleFocus(val, v$.email.$touch)"
+              @update:model-value="() => backendErrors.email = undefined"
+            />
 
-          <VTextField
-            v-model="state.password"
-            :append-inner-icon="passwordIsVisible ? 'mdi-eye' : 'mdi-eye-off'"
-            class="mt-2"
-            label="Пароль"
-            :type="passwordIsVisible ? 'text' : 'password'"
-            counter
-            :error-messages="mapErrorMessages(v$.password.$errors)"
-            @click:append-inner="passwordIsVisible = !passwordIsVisible"
-            @update:focused="val => handleFocus(val, v$.password.$touch)"
-          />
+            <VTextField
+              v-model="state.password"
+              :append-inner-icon="passwordIsVisible ? 'mdi-eye' : 'mdi-eye-off'"
+              class="mt-2"
+              label="Пароль"
+              :type="passwordIsVisible ? 'text' : 'password'"
+              counter
+              :error-messages="mapErrorMessages(v$.password.$errors)"
+              @click:append-inner="passwordIsVisible = !passwordIsVisible"
+              @update:focused="val => handleFocus(val, v$.password.$touch)"
+            />
 
-          <VTextField
-            v-model="state.confirmPassword"
-            :append-inner-icon="passwordIsVisible ? 'mdi-eye' : 'mdi-eye-off'"
-            class="mt-2"
-            label="Повторите пароль"
-            :type="confirmPasswordIsVisible ? 'text' : 'password'"
-            counter
-            :error-messages="mapErrorMessages(v$.confirmPassword.$errors)"
-            @click:append-inner="confirmPasswordIsVisible = !confirmPasswordIsVisible"
-            @update:focused="val => handleFocus(val, v$.confirmPassword.$touch)"
-          />
+            <VTextField
+              v-model="state.confirmPassword"
+              :append-inner-icon="passwordIsVisible ? 'mdi-eye' : 'mdi-eye-off'"
+              class="mt-2"
+              label="Повторите пароль"
+              :type="confirmPasswordIsVisible ? 'text' : 'password'"
+              counter
+              :error-messages="mapErrorMessages(v$.confirmPassword.$errors)"
+              @click:append-inner="confirmPasswordIsVisible = !confirmPasswordIsVisible"
+              @update:focused="val => handleFocus(val, v$.confirmPassword.$touch)"
+            />
 
-          <VTextField
-            v-model="state.dateOfBirth"
-            class="mt-2"
-            label="День рождения"
-            type="date"
-            :error-messages="mapErrorMessages(v$.dateOfBirth.$errors)"
-            @update:focused="val => handleFocus(val, v$.dateOfBirth.$touch)"
-          />
+            <VTextField
+              v-model="state.dateOfBirth"
+              class="mt-2"
+              label="День рождения"
+              type="date"
+              :error-messages="mapErrorMessages(v$.dateOfBirth.$errors)"
+              @update:focused="val => handleFocus(val, v$.dateOfBirth.$touch)"
+            />
 
-          <VCheckbox
-            v-model="state.policyAgreement"
-            label="Принимаю всякие там соглашения"
-            :error-messages="mapErrorMessages(v$.policyAgreement.$errors)"
-            @update:focused="val => handleFocus(val, v$.policyAgreement.$touch)"
-          />
+            <VCheckbox
+              v-model="state.policyAgreement"
+              label="Принимаю всякие там соглашения"
+              :error-messages="mapErrorMessages(v$.policyAgreement.$errors)"
+              @update:focused="val => handleFocus(val, v$.policyAgreement.$touch)"
+            />
 
-          <VBtn
-            class="mt-4"
-            type="submit"
-            variant="text"
-            color="primary"
-            :disabled="v$.$error"
-            :loading="isLoading.submit"
-          >
-            Отправить
-          </VBtn>
-        </VCol>
-      </VRow>
-    </VContainer>
-  </VForm>
+            <VBtn
+              class="mt-4"
+              type="submit"
+              variant="text"
+              color="primary"
+              :disabled="v$.$error"
+              :loading="isLoading.submit"
+            >
+              Отправить
+            </VBtn>
+          </VCol>
+        </VRow>
+      </VContainer>
+    </VForm>
+    для проверки валидации на уникальность<br/>
+    Занятый никнейм: nickname<br/>
+    Занятый email: email@example.com
+  </VContainer>
 </template>
 
 <script lang="ts" setup>
